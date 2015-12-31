@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="container panel top-panel">
+	<div class="row panel-header">Add Item for {{category.name}}</div>
+	<form action="{{ url_for('addItem',category_id=category.id)}}" method = "post">
+	<div class="form-group" style="margin-left:40px">
+		<label for="title">Title</label><br>
+		<input type ="text" name="title">
+		<br><br>
+		<label for="description">Description</label>
+		<textarea rows="4" class="form-control" name="description"></textarea><br>
+		<input type="submit" value="Add"></input>
+	</div>
+	</form>
+</div>
+{% endblock %}

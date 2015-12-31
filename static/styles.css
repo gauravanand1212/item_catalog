@@ -1,0 +1,63 @@
+body { background: gray !important; } 
+
+.top-menu {
+	background-color: #000066;
+	font-family: "Times New Roman", Georgia, Serif;
+	font-size: 30px;
+	color: #FFFFFF;
+	text-align: left;
+}
+
+.right-panel {
+	border-left: solid #E6E6E6;
+}
+
+.top-panel {
+	margin-top:10px;
+	margin-left:8.3%;
+}
+
+.text {
+	font-weight: bold;
+	color: #DF7401;
+	margin-left: 40px;
+}
+
+.text a {
+	font-weight: bold;
+	color: #DF7401;	
+}
+
+.selectable:hover {
+	background-color: #E6E6E6;
+	cursor: pointer;
+}
+
+.notes {
+	color: #D8D8D8;
+	text-align: right;
+	float: right;
+	font-style: italic;
+}
+
+.panel-header {
+	color: #000066;
+	font-size: 25px;
+	font-weight: bold;
+	margin:20px;
+	margin-left: 40px;
+}
+
+.glyphicon-chevron-right {
+	float: right;
+}
+
+.alert {
+	float:center;
+	text-align: center;
+}
+
+#addItem {
+	color: #DF7401;
+	font-size: 15px;
+}

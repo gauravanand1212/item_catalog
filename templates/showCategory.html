@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	<div class="container panel top-panel">
+	<div class="row">
+		<div class="col-md-4 panel">
+			<div class="panel-header">Category</div>
+			<br>
+			{% for cat in categories %}
+			<div class="text selectable"><a href='{{url_for('showCategory',category_id=cat.id)}}'>
+				{{cat.name}}
+				{% if cat.id != category.id %}
+					<div class="glyphicon glyphicon-chevron-right" aria-hidden="true"></div>
+				{%endif%}</a>			
+				{% if not loop.count == categories.count %}<br>{%endif%}
+			</div>
+			{% endfor %}
+
+		</div>
+		<div class="col-md-8 panel">
+			<div class="panel-header">
+				<div id="flex-header">{{category.name}} Items ( {{category.items.count()}} items )</div>
+				{%if g.logged%}<div id="addItem"><a href='{{url_for('addItem',category_id=category.id)}}'> Add Item </a></div>{%endif%}
+
+			</div>
+			<div class="right-panel">
+				<div class="text items">
+			{% for item in category.items |sort(reverse=True,attribute='updated')%}
+				<span><a href='{{url_for('showItem',item_id=item.id)}}'>{{item.name}} (
+					{% for i in item.categories %} {{i.name}}
+					{% if not loop.last %} , {% endif %}
+					{% endfor %} )
+				</a></span><br>
+			{% endfor %}
+				</div>
+			</div>		
+		</div>
+
+	</div>
+<script>
+{% endblock %}

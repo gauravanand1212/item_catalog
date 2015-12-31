@@ -1,0 +1,28 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="container panel top-panel">
+	<div class="row panel-header">Edit Item</div>
+	<form action="{{ url_for('editItem',item_id = item.id)}}" method = "post">
+	<div class="form-group" style="margin-left:40px">
+		<label for="title">Title</label><br>
+		<input type ="text" name="title" value="{{item.name}}">
+		<br><br>
+		<label for="description">Description</label>
+		<textarea rows="4" class="form-control" name="description">{{item.description}}"</textarea><br>
+		<label for="categories">Categories</label><br>
+		<select name="categories" multiple size={{categories|length}}>
+  			{%for category in categories%}
+  				{%if category in item.categories%}
+  					<option value={{category.id}} selected>{{category.name}}</option>
+  				{%else%}
+  					<option value={{category.id}}>{{category.name}}</option>
+  				{%endif%}
+ 			{%endfor%}
+		</select>
+		<br><br>
+		<input type="submit"></input>
+	</div>
+	</form>
+</div>
+{% endblock %}

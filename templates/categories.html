@@ -1,0 +1,49 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+
+		      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+         <div class="alert alert-info">
+        {% for message in messages %}
+            <strong> {{ message }} </strong>
+        {% endfor %}
+    </div>
+        {% endif %}
+    {% endwith %}	
+
+	<div class="container panel top-panel">
+	<div class="row">
+		<div class="col-md-4 panel">
+			<div class="panel-header">Category</div>
+			<br>
+			{% for category in categories %}
+			<div class="text selectable">
+				<a href='{{url_for('showCategory',category_id=category.id)}}'>
+				{{category.name}}<div class="glyphicon glyphicon-chevron-right" aria-hidden="true"></div></a>
+				{% if not loop.count == categories.count %}
+					<br>
+				{%endif%}
+			</div>
+			{% endfor %}
+
+		</div>
+		<div class="col-md-8 panel">
+			<div class="panel-header" id="flex-header">Latest Items</div>	
+			<br>
+			<div class="right-panel">
+				<div class="text items">
+			{% for item in items |sort(reverse=True,attribute='updated')%}
+				<span><a href='{{url_for('showItem',item_id=item.id)}}'>{{item.name}} (
+					{% for i in item.categories %} {{i.name}}
+					{% if not loop.last %} , {% endif %}
+					{% endfor %} )
+				</a></span><br>
+			{% endfor %}
+				</div>
+			</div>		
+		</div>
+
+	</div>
+{% endblock %}

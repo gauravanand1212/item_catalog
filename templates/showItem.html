@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+<div class="container panel top-panel">
+	<div class="row"> 
+		<div class="panel-header">{{item.name}}</div>
+	</div>
+	<div class="col-md-10" style="margin-left:10px;margin-bottom:10px">Description: {{item.description|safe}}<br><br>
+		{%if g.logged%}
+		<span class="text" style="margin-left:0px"><a href='{{url_for('editItem',item_id=item.id)}}'>Edit |</a>
+			<a href='{{url_for('deleteItem',item_id=item.id)}}'>Delete</a>
+		</span>
+		<span class="notes">Last updated: {{item.updated}}</span>
+		{%endif%}
+	</div>
+</div>
+
+
+
+{% endblock %}
