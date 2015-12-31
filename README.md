@@ -53,6 +53,8 @@ of categories and courses along with the relationships
 only that track
 - Clicking on a course will allow user to view course details
 including description and tracks which the course is a part of
+- Navigating to localhost:8080/json will provide you the API 
+endpoint to get all catalog information in json format
 - Users can log in using Google and Facebook credentials. Logging
 in provides additional functionality listed below:
 
