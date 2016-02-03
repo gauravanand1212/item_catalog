@@ -18,7 +18,7 @@ class Category(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(250), nullable=False)
     items = relationship('Items',
-             secondary=association_table,lazy="dynamic",backref='categories')
+             secondary=association_table, lazy="dynamic", backref='categories')
 
     @property
     def serialize(self):

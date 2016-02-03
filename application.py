@@ -21,6 +21,7 @@ import requests
 # Connect to Database and create database session
 engine = create_engine('sqlite:///itemcatalog.db')
 Base.metadata.bind = engine
+meta = MetaData()
 
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
@@ -230,11 +231,13 @@ def disconnect():
         if login_session['provider'] == 'google':
             gdisconnect()
             login_session.clear()
+            flash("You have successfully been logged out.")
+            return "success"
         if login_session['provider'] == 'facebook':
             fbdisconnect()
             login_session.clear()
-        flash("You have successfully been logged out.")
-        return "success"
+            flash("You have successfully been logged out.")
+            return "success"
     else:
         flash("You were not logged in")
         return redirect(url_for('showCategories'))
@@ -250,6 +253,9 @@ def showItem(item_id):
 # Edit Item based on item_id
 @app.route('/item/<item_id>/edit', methods=['GET', 'POST'])
 def editItem(item_id):
+    # Ensure only authenticated users can edit item
+    if 'username' not in login_session:
+        return redirect('/login')
     editedItem = session.query(Items).filter_by(id=item_id).one()
     if request.method == 'POST':
         if request.form['title']:
@@ -279,6 +285,9 @@ def editItem(item_id):
 # Delete a selected Item
 @app.route('/item/<item_id>/delete', methods=['GET', 'POST'])
 def deleteItem(item_id):
+    # Ensure only authenticated users can delete item
+    if 'username' not in login_session:
+        return redirect('/login')
     item = session.query(Items).filter_by(id=item_id).one()
     if request.method == 'POST':
         if 'delete' in request.form:
@@ -302,6 +311,9 @@ def showCategory(category_id):
 # Add Item in a category
 @app.route('/categories/<int:category_id>/addItem', methods=['GET', 'POST'])
 def addItem(category_id):
+    # Ensure only authenticated users can add item
+    if 'username' not in login_session:
+        return redirect('/login')
     category = session.query(Category).filter_by(id=category_id).one()
     if request.method == 'POST':
         newItem = Items(name=request.form['title'],
